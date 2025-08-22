@@ -634,7 +634,7 @@ export var Game = /*#__PURE__*/ function() {
                                 return [
                                     4,
                                     new Promise(function(resolve, reject) {
-                                        gltfLoader.load('assets/stan.gltf', function(gltf) {
+                                        gltfLoader.load('stan.gltf', function(gltf) {
                                             _this.pandaModel = gltf.scene; // GLTFLoader returns an object with a 'scene' property
                                             _this.animationMixer = new THREE.AnimationMixer(_this.pandaModel);
                                             _this.animationClips = gltf.animations;
