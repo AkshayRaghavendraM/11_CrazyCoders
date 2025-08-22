@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Updated title and theme from histogram to hologram -->
+    <title>Hologram Arena - VisionLab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Updated color scheme for hologram theme with more ethereal colors -->*/
+            --neon-cyan: #00FFFF;
+            --neon-magenta: #FF00FF;
+            --neon-lime: #39FF14;
+            --neon-amber: #FFCC00;
+            --neon-violet: #9D4DFF;
+            --hologram-blue: #4FC3F7;
+            --hologram-purple: #BA68C8;
+            --hologram-teal: #26C6DA;
+            --text-primary: #F5F5F5;
+            --text-secondary: #CCCCCC;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #000;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        /* Updated hero section for hologram theme */
+        .hero {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--hologram-blue), var(--hologram-purple), var(--hologram-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: hologramShimmer 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(79, 195, 247, 0.5);
+        }
+
+        @keyframes hologramShimmer {
+            0%, 100% { filter: hue-rotate(0deg) brightness(1); }
+            50% { filter: hue-rotate(60deg) brightness(1.2); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        /* Start Button */
+        .start-button {
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta));
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #000;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            margin-bottom: 1rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .start-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+        }
+
+        .start-button:focus {
+            outline: 2px solid var(--neon-cyan);
+            outline-offset: 4px;
+        }
+
+        .button-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* UI Chips */
+        .chips {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .chip {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--neon-lime);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--neon-lime);
+            background: rgba(57, 255, 20, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .chip:hover {
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Added holographic projection effects */
+        .holographic-projections {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hologram-shape {
+            position: absolute;
+            opacity: 0.7;
+            animation: holoFloat 8s ease-in-out infinite;
+        }
+
+        .hologram-cube {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--hologram-blue), transparent);
+            border: 2px solid var(--hologram-blue);
+            transform-style: preserve-3d;
+            animation: holoCubeRotate 6s linear infinite;
+        }
+
+        .hologram-pyramid {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 35px solid var(--hologram-purple);
+            filter: drop-shadow(0 0 10px var(--hologram-purple));
+            animation: holoPyramidSpin 4s linear infinite;
+        }
+
+        .hologram-sphere {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--hologram-teal), transparent);
+            border: 2px solid var(--hologram-teal);
+            animation: holoSphereGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes holoFloat {
+            0%, 100% { transform: translateY(0px) translateX(-100px); opacity: 0; }
+            10% { opacity: 0.7; }
+            50% { transform: translateY(-20px) translateX(50vw); opacity: 0.9; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(0px) translateX(100vw); opacity: 0; }
+        }
+
+        @keyframes holoCubeRotate {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        @keyframes holoPyramidSpin {
+            0% { transform: rotateZ(0deg); }
+            100% { transform: rotateZ(360deg); }
+        }
+
+        @keyframes holoSphereGlow {
+            0%, 100% { box-shadow: 0 0 10px var(--hologram-teal); }
+            50% { box-shadow: 0 0 30px var(--hologram-teal), 0 0 50px var(--hologram-teal); }
+        }
+
+        /* Updated pathway section to timeline format */
+        .pathway-section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Timeline line */
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--hologram-blue), var(--hologram-purple), var(--hologram-teal));
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px rgba(79, 195, 247, 0.5);
+        }
+
+        .timeline-step {
+            position: relative;
+            margin-bottom: 4rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-step:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            background: rgba(79, 195, 247, 0.1);
+            border: 1px solid var(--hologram-blue);
+            border-radius: 12px;
+            padding: 2rem;
+            width: 45%;
+            position: relative;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(79, 195, 247, 0.3);
+        }
+
+        /* Timeline arrows */
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+            transform: translateY(-50%);
+        }
+
+        .timeline-step:nth-child(odd) .timeline-content::before {
+            right: -30px;
+            border-left-color: var(--hologram-blue);
+        }
+
+        .timeline-step:nth-child(even) .timeline-content::before {
+            left: -30px;
+            border-right-color: var(--hologram-blue);
+        }
+
+        .timeline-node {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--hologram-blue), var(--hologram-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #000;
+            box-shadow: 0 0 30px rgba(79, 195, 247, 0.6);
+            z-index: 2;
+        }
+
+        .step-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            background: linear-gradient(45deg, var(--hologram-blue), var(--hologram-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .step-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 30px;
+            }
+
+            .timeline-step {
+                flex-direction: row !important;
+            }
+
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px;
+            }
+
+            .timeline-content::before {
+                left: -30px !important;
+                right: auto !important;
+                border-right-color: var(--hologram-blue) !important;
+                border-left-color: transparent !important;
+            }
+
+            .timeline-node {
+                left: 30px;
+            }
+        }
+
+        /* Added features section styles */
+        .features-section {
+            padding: 6rem 2rem;
+            background: rgba(186, 104, 200, 0.05);
+            position: relative;
+            z-index: 10;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(38, 198, 218, 0.1);
+            border: 1px solid var(--hologram-teal);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(38, 198, 218, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--hologram-teal);
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Added FAQ section styles */
+        .faq-section {
+            padding: 6rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .faq-item {
+            background: rgba(157, 77, 255, 0.1);
+            border: 1px solid var(--hologram-purple);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(157, 77, 255, 0.2);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            display: none;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: var(--hologram-purple);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-toggle.active {
+            transform: rotate(45deg);
+        }
+
+        /* Replaced histogram bars with flying geometric shapes */
+        .geometric-projections {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* Enhanced shapes with responsive hover effects */
+        .flying-shape {
+            position: absolute;
+            opacity: 0.7;
+            animation: flyAcross 8s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+            transition: all 0.3s ease;
+        }
+
+        .flying-shape:nth-child(3n) {
+            animation-name: curvedFlight;
+            animation-duration: 10s;
+            animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .flying-shape:nth-child(4n) {
+            animation-name: spiralMotion;
+            animation-duration: 12s;
+            animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .flying-shape:nth-child(5n) {
+            animation-name: waveMotion;
+            animation-duration: 9s;
+            animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .shape-triangle {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 25px solid var(--color);
+            filter: drop-shadow(0 0 10px var(--color));
+        }
+
+        .shape-diamond {
+            width: 20px;
+            height: 20px;
+            background: var(--color);
+            transform: rotate(45deg);
+            filter: drop-shadow(0 0 8px var(--color));
+        }
+
+        .shape-hexagon {
+            width: 24px;
+            height: 24px;
+            background: var(--color);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            filter: drop-shadow(0 0 12px var(--color));
+        }
+
+        .shape-bar {
+            width: 4px;
+            height: 30px;
+            background: linear-gradient(to top, var(--color), transparent);
+            filter: drop-shadow(0 0 6px var(--color));
+        }
+
+        .shape-circle {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--color);
+            border-radius: 50%;
+            filter: drop-shadow(0 0 8px var(--color));
+        }
+
+        /* Enhanced flying animation with curved paths and responsive motion */
+        @keyframes flyAcross {
+            0% {
+                transform: translateX(-100px) translateY(var(--start-y)) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+                transform: translateX(5vw) translateY(calc(var(--start-y) + sin(0.1) * 20px)) rotate(36deg) scale(1);
+            }
+            25% {
+                transform: translateX(25vw) translateY(calc(var(--start-y) + sin(0.25) * 40px)) rotate(90deg) scale(1.2);
+            }
+            50% {
+                transform: translateX(50vw) translateY(calc(var(--start-y) + sin(0.5) * 60px)) rotate(180deg) scale(1);
+            }
+            75% {
+                transform: translateX(75vw) translateY(calc(var(--start-y) + sin(0.75) * 40px)) rotate(270deg) scale(1.1);
+            }
+            90% {
+                opacity: 0.7;
+                transform: translateX(95vw) translateY(calc(var(--end-y) + sin(0.9) * 20px)) rotate(324deg) scale(0.9);
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(var(--end-y)) rotate(360deg) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        /* Added curved bezier path animations for more organic motion */
+        @keyframes curvedFlight {
+            0% {
+                transform: translateX(-100px) translateY(var(--start-y)) rotate(0deg);
+                opacity: 0;
+            }
+            25% {
+                transform: translateX(25vw) translateY(calc(var(--start-y) - 10vh)) rotate(90deg);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateX(50vw) translateY(calc(var(--start-y) + 5vh)) rotate(180deg);
+                opacity: 1;
+            }
+            75% {
+                transform: translateX(75vw) translateY(calc(var(--start-y) - 15vh)) rotate(270deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(var(--end-y)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Added spiral motion for enhanced geometric projection */
+        @keyframes spiralMotion {
+            0% {
+                transform: translateX(-50px) translateY(var(--start-y)) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            25% {
+                transform: translateX(25vw) translateY(calc(var(--start-y) - 20px)) rotate(180deg) scale(1.2);
+                opacity: 0.9;
+            }
+            50% {
+                transform: translateX(50vw) translateY(calc(var(--start-y) + 40px)) rotate(360deg) scale(0.8);
+                opacity: 1;
+            }
+            75% {
+                transform: translateX(75vw) translateY(calc(var(--start-y) - 30px)) rotate(540deg) scale(1.1);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateX(calc(100vw + 50px)) translateY(var(--end-y)) rotate(720deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* Added wave-like motion for fluid geometric transitions */
+        @keyframes waveMotion {
+            0% {
+                transform: translateX(-80px) translateY(var(--start-y)) rotate(0deg);
+                opacity: 0;
+                filter: drop-shadow(0 0 5px var(--color)) hue-rotate(0deg);
+            }
+            20% {
+                transform: translateX(20vw) translateY(calc(var(--start-y) + sin(1.26) * 30px)) rotate(72deg);
+                opacity: 0.7;
+                filter: drop-shadow(0 0 10px var(--color)) hue-rotate(72deg);
+            }
+            40% {
+                transform: translateX(40vw) translateY(calc(var(--start-y) + sin(2.51) * 50px)) rotate(144deg);
+                opacity: 1;
+                filter: drop-shadow(0 0 15px var(--color)) hue-rotate(144deg);
+            }
+            60% {
+                transform: translateX(60vw) translateY(calc(var(--start-y) + sin(3.77) * 40px)) rotate(216deg);
+                opacity: 1;
+                filter: drop-shadow(0 0 12px var(--color)) hue-rotate(216deg);
+            }
+            80% {
+                transform: translateX(80vw) translateY(calc(var(--start-y) + sin(5.03) * 25px)) rotate(288deg);
+                opacity: 0.8;
+                filter: drop-shadow(0 0 8px var(--color)) hue-rotate(288deg);
+            }
+            100% {
+                transform: translateX(calc(100vw + 80px)) translateY(var(--end-y)) rotate(360deg);
+                opacity: 0;
+                filter: drop-shadow(0 0 5px var(--color)) hue-rotate(360deg);
+            }
+        }
+
+        /* Flying animation paths */
+         @keyframes flyAcross {
+            0% {
+                transform: translateX(-100px) translateY(var(--start-y)) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(var(--end-y)) rotate(360deg);
+                opacity: 0;
+            }
+        } 
+
+        /* Background grid pattern */
+        .background-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.1;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridShift 20s linear infinite;
+        }
+
+        @keyframes gridShift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Geometric constellation background */
+        .constellation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .constellation-dot {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--color);
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+            box-shadow: 0 0 4px var(--color);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Color variations for shapes */
+        .color-cyan { --color: var(--neon-cyan); }
+        .color-magenta { --color: var(--neon-magenta); }
+        .color-lime { --color: var(--neon-lime); }
+        .color-amber { --color: var(--neon-amber); }
+        .color-violet { --color: var(--neon-violet); }
+
+        /* New geometric animation keyframes */
+        @keyframes geometricPulse {
+            0%, 100% { 
+                transform: scaleY(1) rotateY(0deg);
+                opacity: 0.8;
+            }
+            25% {
+                transform: scaleY(1.3) rotateY(5deg);
+                opacity: 1;
+            }
+            50% { 
+                transform: scaleY(1.1) rotateY(-3deg);
+                opacity: 0.9;
+            }
+            75% {
+                transform: scaleY(1.4) rotateY(2deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes waveTransform {
+            0%, 100% {
+                transform: translateZ(0) skewX(0deg);
+            }
+            33% {
+                transform: translateZ(20px) skewX(2deg);
+            }
+            66% {
+                transform: translateZ(-10px) skewX(-1deg);
+            }
+        }
+
+        @keyframes projectionPulse {
+            0%, 100% {
+                opacity: 0.1;
+                transform: translateX(-50%) rotateX(45deg) scaleY(0.5);
+            }
+            50% {
+                opacity: 0.6;
+                transform: translateX(-50%) rotateX(60deg) scaleY(1.2);
+            }
+        }
+
+        @keyframes baseExpansion {
+            0%, 100% {
+                transform: translateX(-50%) scaleX(0);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateX(-50%) scaleX(2);
+                opacity: 0.8;
+            }
+        }
+
+        /* Added geometric grid overlay */
+        .geometric-grid {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60vh;
+            z-index: 0;
+            pointer-events: none;
+            background-image: 
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridShift 12s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes gridShift {
+            0% {
+                transform: translateX(0) translateY(0);
+            }
+            100% {
+                transform: translateX(40px) translateY(40px);
+            }
+        }
+
+        /* Added mathematical curve projections */
+        .curve-projection {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60vh;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .curve-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-magenta), var(--neon-lime), transparent);
+            transform-origin: left bottom;
+            animation: curveFlow 6s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .curve-line:nth-child(2) {
+            animation-delay: 2s;
+            background: linear-gradient(90deg, transparent, var(--neon-magenta), var(--neon-violet), var(--neon-amber), transparent);
+        }
+
+        .curve-line:nth-child(3) {
+            animation-delay: 4s;
+            background: linear-gradient(90deg, transparent, var(--neon-lime), var(--neon-cyan), var(--neon-violet), transparent);
+        }
+
+        /* Enhanced curve projections with dynamic responsiveness */
+        @keyframes curveFlow {
+            0%, 100% {
+                transform: translateY(0) scaleX(0) rotateZ(0deg) skewX(0deg);
+                opacity: 0;
+            }
+            15% {
+                transform: translateY(-10vh) scaleX(0.3) rotateZ(1deg) skewX(2deg);
+                opacity: 0.4;
+            }
+            25% {
+                transform: translateY(-20vh) scaleX(0.6) rotateZ(2deg) skewX(-1deg);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-40vh) scaleX(1.2) rotateZ(-1deg) skewX(3deg);
+                opacity: 1;
+            }
+            75% {
+                transform: translateY(-30vh) scaleX(0.9) rotateZ(1.5deg) skewX(-2deg);
+                opacity: 0.8;
+            }
+            85% {
+                transform: translateY(-15vh) scaleX(0.4) rotateZ(-0.5deg) skewX(1deg);
+                opacity: 0.5;
+            }
+        }
+
+        /* Removed histogram shadow styles as they're no longer needed */
+
+        /* Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 6px var(--neon-cyan);
+            animation: float 8s linear infinite;
+        }
+
+        .particle:nth-child(2n) {
+            background: var(--neon-magenta);
+            box-shadow: 0 0 6px var(--neon-magenta);
+            animation-duration: 12s;
+        }
+
+        .particle:nth-child(3n) {
+            background: var(--neon-lime);
+            box-shadow: 0 0 6px var(--neon-lime);
+            animation-duration: 10s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Scanline */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            z-index: 3;
+            animation: scan 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0%, 20% {
+                left: -100%;
+            }
+            80%, 100% {
+                left: 100%;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            z-index: 10;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .nav {
+                gap: 1rem;
+            }
+            
+            .nav a {
+                font-size: 0.9rem;
+            }
+            
+            .chips {
+                gap: 0.5rem;
+            }
+            
+            .chip {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .histogram-container {
+                height: 40vh;
+                padding: 0 1rem;
+            }
+        }
+
+        /* Updated reduced motion to include new animations */
+        @media (prefers-reduced-motion: reduce) {
+            .histogram-bar {
+                animation: none;
+            }
+            
+            .histogram-bar::before,
+            .histogram-bar::after {
+                animation: none;
+            }
+            
+            .geometric-grid {
+                animation: none;
+            }
+            
+            .curve-line {
+                animation: none;
+            }
+            
+            .shadow-bar {
+                animation: none;
+            }
+            
+            .particle {
+                animation: none;
+                opacity: 0.3;
+            }
+            
+            .scanline {
+                animation: none;
+            }
+            
+            .start-button:hover {
+                transform: none;
+            }
+            
+            .chip:hover {
+                transform: none;
+            }
+        }
+
+        /* Added mouse-responsive particle system */
+        .responsive-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .responsive-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--color);
+            border-radius: 50%;
+            animation: particleFloat 6s ease-in-out infinite;
+            box-shadow: 0 0 6px var(--color);
+        }
+
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translateY(0) scale(0.8);
+                opacity: 0.4;
+            }
+            25% {
+                transform: translateY(-20px) scale(1.2);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-40px) scale(1);
+                opacity: 1;
+            }
+            75% {
+                transform: translateY(-30px) scale(1.1);
+                opacity: 0.9;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">VisionLab</div>
+        <nav class="nav">
+            <a href="#about">About</a>
+            <a href="#pathway">How to Use</a>
+            <a href="#features">Features</a>
+            <a href="#faq">FAQ</a>
+            <a href="#github">GitHub</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="hero">
+        <!-- Updated hero content for hologram theme -->
+        <h1 class="hero-title">Hologram Arena</h1>
+        <p class="hero-subtitle">Experience next-generation 3D holographic projections with real-time rendering and interactive visualization.</p>
+        
+        <button id="start-btn" class="start-button" onclick="window.location.href='index.html'">Start</button>
+        <div class="button-label">Enter the holographic dimension.</div>
+        
+        <div class="chips">
+            <span class="chip">3D Rendering</span>
+            <span class="chip">Real-time</span>
+            <span class="chip">Interactive</span>
+        </div>
+    </main>
+
+    <!-- Replaced geometric shapes with holographic projections -->
+    <div class="background-grid"></div>
+    
+    <div class="constellation">
+        <div class="constellation-dot color-cyan" style="top: 10%; left: 15%;"></div>
+        <div class="constellation-dot color-magenta" style="top: 25%; left: 80%;"></div>
+        <div class="constellation-dot color-lime" style="top: 40%; left: 30%;"></div>
+        <div class="constellation-dot color-amber" style="top: 60%; left: 70%;"></div>
+        <div class="constellation-dot color-violet" style="top: 80%; left: 20%;"></div>
+        <div class="constellation-dot color-cyan" style="top: 15%; left: 60%;"></div>
+        <div class="constellation-dot color-magenta" style="top: 35%; left: 10%;"></div>
+        <div class="constellation-dot color-lime" style="top: 55%; left: 90%;"></div>
+        <div class="constellation-dot color-amber" style="top: 75%; left: 45%;"></div>
+        <div class="constellation-dot color-violet" style="top: 90%; left: 75%;"></div>
+    </div>
+
+    <div class="holographic-projections">
+        <!-- Holographic cubes -->
+        <div class="hologram-shape hologram-cube" style="top: 20%; left: -50px; animation-delay: 0s;"></div>
+        <div class="hologram-shape hologram-cube" style="top: 40%; left: -50px; animation-delay: 2s;"></div>
+        <div class="hologram-shape hologram-cube" style="top: 60%; left: -50px; animation-delay: 4s;"></div>
+        
+        <!-- Holographic pyramids -->
+        <div class="hologram-shape hologram-pyramid" style="top: 30%; left: -50px; animation-delay: 1s;"></div>
+        <div class="hologram-shape hologram-pyramid" style="top: 50%; left: -50px; animation-delay: 3s;"></div>
+        <div class="hologram-shape hologram-pyramid" style="top: 70%; left: -50px; animation-delay: 5s;"></div>
+        
+        <!-- Holographic spheres -->
+        <div class="hologram-shape hologram-sphere" style="top: 15%; left: -50px; animation-delay: 0.5s;"></div>
+        <div class="hologram-shape hologram-sphere" style="top: 35%; left: -50px; animation-delay: 2.5s;"></div>
+        <div class="hologram-shape hologram-sphere" style="top: 55%; left: -50px; animation-delay: 4.5s;"></div>
+        <div class="hologram-shape hologram-sphere" style="top: 75%; left: -50px; animation-delay: 6.5s;"></div>
+    </div>
+
+    <!-- Updated pathway section to timeline format -->
+    <section id="pathway" class="pathway-section">
+        <h2 class="section-title">How to Use Hologram Arena</h2>
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+            
+            <div class="timeline-step">
+                <div class="timeline-content">
+                    <h3 class="step-title">Setup Your Environment</h3>
+                    <p class="step-description">Install the required dependencies and configure your 3D rendering environment. Ensure your device supports WebGL 2.0 for optimal holographic performance.</p>
+                </div>
+                <div class="timeline-node">1</div>
+            </div>
+
+            <div class="timeline-step">
+                <div class="timeline-content">
+                    <h3 class="step-title">Initialize Hologram</h3>
+                    <p class="step-description">Launch the holographic interface and calibrate your display settings. Choose from various projection modes and customize your immersive viewing experience.</p>
+                </div>
+                <div class="timeline-node">2</div>
+            </div>
+
+            <div class="timeline-step">
+                <div class="timeline-content">
+                    <h3 class="step-title">Create & Interact</h3>
+                    <p class="step-description">Start creating 3D holographic content using our intuitive tools. Interact with objects in real-time and manipulate holographic projections with gesture controls.</p>
+                </div>
+                <div class="timeline-node">3</div>
+            </div>
+
+            <div class="timeline-step">
+                <div class="timeline-content">
+                    <h3 class="step-title">Export & Share</h3>
+                    <p class="step-description">Export your holographic projects in multiple formats. Share with the community or integrate into your applications using our comprehensive hologram API.</p>
+                </div>
+                <div class="timeline-node">4</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Added features section -->
+    <section id="features" class="features-section">
+        <h2 class="section-title">Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔮</div>
+                <h3 class="feature-title">Real-time 3D Rendering</h3>
+                <p class="feature-description">Experience smooth, high-quality 3D holographic projections with real-time rendering capabilities powered by advanced WebGL technology.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Low Latency Processing</h3>
+                <p class="feature-description">Enjoy ultra-low latency interactions with our optimized rendering pipeline, ensuring responsive and fluid holographic experiences.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3 class="feature-title">Interactive Design Tools</h3>
+                <p class="feature-description">Create stunning holographic content with our intuitive design interface, featuring drag-and-drop functionality and real-time preview.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3 class="feature-title">Cross-Platform Support</h3>
+                <p class="feature-description">Access Hologram Arena from any modern web browser across desktop, tablet, and mobile devices with consistent performance.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔧</div>
+                <h3 class="feature-title">Comprehensive API</h3>
+                <p class="feature-description">Integrate holographic capabilities into your own applications with our well-documented API and extensive code examples.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💾</div>
+                <h3 class="feature-title">Cloud Storage</h3>
+                <p class="feature-description">Save and sync your holographic projects across devices with secure cloud storage and version control features.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Added FAQ section -->
+    <section id="faq" class="faq-section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>What devices are compatible with Hologram Arena?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                Hologram Arena works on any device with a modern web browser that supports WebGL 2.0. This includes desktop computers, laptops, tablets, and smartphones. For the best experience, we recommend using Chrome, Firefox, Safari, or Edge browsers.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>Do I need special hardware for holographic viewing?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                No special hardware is required! Hologram Arena creates the illusion of 3D holographic projections using advanced rendering techniques on your regular screen. However, for enhanced experiences, you can use VR headsets or 3D displays.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>Is there a free version available?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                Yes! Hologram Arena offers a free tier with basic holographic creation tools and limited storage. Premium features include advanced rendering options, unlimited storage, and priority support.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>Can I integrate Hologram Arena into my own application?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                We provide a comprehensive API and SDK that allows you to integrate holographic capabilities into your own applications. Documentation and code examples are available in our developer portal.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>What file formats are supported for import/export?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                Hologram Arena supports popular 3D formats including OBJ, FBX, GLTF, and STL for import. You can export your creations as interactive web components, video files, or 3D model formats for use in other applications.
+            </div>
+        </div>
+    </section>
+
+    <!-- Added geometric grid overlay -->
+    <div class="geometric-grid"></div>
+
+    <script>
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const toggle = element.querySelector('.faq-toggle');
+            
+            if (answer.classList.contains('active')) {
+                answer.classList.remove('active');
+                toggle.classList.remove('active');
+                toggle.textContent = '+';
+            } else {
+                // Close all other FAQs
+                document.querySelectorAll('.faq-answer.active').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelectorAll('.faq-toggle.active').forEach(item => {
+                    item.classList.remove('active');
+                    item.textContent = '+';
+                });
+                
+                // Open clicked FAQ
+                answer.classList.add('active');
+                toggle.classList.add('active');
+                toggle.textContent = '×';
+            }
+        }
+    </script>
+</body>
+</html>
