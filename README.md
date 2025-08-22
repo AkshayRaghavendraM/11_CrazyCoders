@@ -2,6 +2,11 @@ HologramArcade - VisionLab
 A browser-based, real-time demo that combines MediaPipe Hand Tracking with a Three.js overlay. 
 It renders a mirrored webcam feed, draws 2D hand landmarks, and overlays an interactive neon 3D object that responds to simple gestures.
 
+Easy Setup:
+Download the Repo 
+Open frontpage.html first and navigate through the app>
+Simple as That!!!
+
 Prerequisites
 A modern browser with camera support:
 
