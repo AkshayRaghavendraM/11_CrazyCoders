@@ -52,10 +52,13 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--neon-cyan);
-            text-shadow: 0 0 10px var(--neon-cyan);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 80px;
+            filter: drop-shadow(0 0 15px var(--neon-cyan));
         }
 
         .nav {
@@ -1074,12 +1077,268 @@
                 opacity: 0.9;
             }
         }
+
+        /* Enhanced holographic background animations */
+        .holographic-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .holo-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--hologram-blue);
+            border-radius: 50%;
+            animation: particleFloat 15s linear infinite;
+            box-shadow: 0 0 6px currentColor;
+        }
+
+        .holo-particle:nth-child(2n) {
+            background: var(--hologram-purple);
+            animation-duration: 12s;
+            animation-delay: -2s;
+        }
+
+        .holo-particle:nth-child(3n) {
+            background: var(--hologram-teal);
+            animation-duration: 18s;
+            animation-delay: -4s;
+        }
+
+        .holo-particle:nth-child(4n) {
+            background: var(--neon-cyan);
+            animation-duration: 20s;
+            animation-delay: -6s;
+        }
+
+        .holo-particle:nth-child(5n) {
+            background: var(--neon-magenta);
+            animation-duration: 14s;
+            animation-delay: -8s;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(90vh) translateX(10px) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(10vh) translateX(-10px) scale(1);
+            }
+            100% {
+                transform: translateY(-10vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Added holographic wave effects */
+        .holo-waves {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .holo-wave {
+            position: absolute;
+            width: 200%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--hologram-blue), 
+                var(--hologram-purple), 
+                var(--hologram-teal), 
+                transparent);
+            animation: waveMove 8s linear infinite;
+            opacity: 0.6;
+        }
+
+        .holo-wave:nth-child(2) {
+            animation-delay: -2s;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--neon-cyan), 
+                var(--neon-magenta), 
+                transparent);
+        }
+
+        .holo-wave:nth-child(3) {
+            animation-delay: -4s;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--hologram-teal), 
+                var(--neon-lime), 
+                transparent);
+        }
+
+        @keyframes waveMove {
+            0% {
+                transform: translateX(-100%) skewX(-15deg);
+                top: 20%;
+            }
+            25% {
+                top: 40%;
+            }
+            50% {
+                top: 60%;
+            }
+            75% {
+                top: 80%;
+            }
+            100% {
+                transform: translateX(100%) skewX(-15deg);
+                top: 20%;
+            }
+        }
+
+        /* Enhanced holographic matrix rain effect */
+        .holo-matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow: hidden;
+        }
+
+        .matrix-column {
+            position: absolute;
+            top: -100%;
+            color: var(--hologram-blue);
+            animation: matrixFall 10s linear infinite;
+            opacity: 0.7;
+            text-shadow: 0 0 5px currentColor;
+        }
+
+        .matrix-column:nth-child(2n) {
+            color: var(--hologram-teal);
+            animation-duration: 12s;
+            animation-delay: -2s;
+        }
+
+        .matrix-column:nth-child(3n) {
+            color: var(--neon-cyan);
+            animation-duration: 8s;
+            animation-delay: -4s;
+        }
+
+        @keyframes matrixFall {
+            0% {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Added holographic scan lines */
+        .holo-scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 255, 0.03) 2px,
+                rgba(0, 255, 255, 0.03) 4px
+            );
+            animation: scanlineMove 0.1s linear infinite;
+        }
+
+        @keyframes scanlineMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        /* Enhanced existing hologram shapes with more variety */
+        .hologram-diamond {
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(45deg, var(--neon-magenta), transparent);
+            border: 2px solid var(--neon-magenta);
+            transform: rotate(45deg);
+            animation: holoDiamondSpin 5s linear infinite;
+        }
+
+        .hologram-hexagon {
+            width: 30px;
+            height: 26px;
+            background: var(--neon-lime);
+            position: relative;
+            margin: 13px 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 8px solid var(--neon-lime);
+            animation: holoHexFloat 7s ease-in-out infinite;
+        }
+
+        .hologram-hexagon:before,
+        .hologram-hexagon:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+        }
+
+        .hologram-hexagon:before {
+            bottom: 100%;
+            border-bottom: 8px solid var(--neon-lime);
+        }
+
+        .hologram-hexagon:after {
+            top: 100%;
+            border-top: 8px solid var(--neon-lime);
+        }
+
+        @keyframes holoDiamondSpin {
+            0% { transform: rotate(45deg) scale(1); }
+            50% { transform: rotate(225deg) scale(1.2); }
+            100% { transform: rotate(405deg) scale(1); }
+        }
+
+        @keyframes holoHexFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(180deg); }
+        }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="logo">VisionLab</div>
+        <div class="logo"><img src="logo.png" alt="Hologram Arena Logo"></div>
         <nav class="nav">
             <a href="#about">About</a>
             <a href="#pathway">How to Use</a>
@@ -1105,8 +1364,54 @@
         </div>
     </main>
 
-    <!-- Replaced geometric shapes with holographic projections -->
+    <!-- Enhanced background with multiple holographic layers -->
     <div class="background-grid"></div>
+    
+    <!-- Added holographic particles -->
+    <div class="holographic-particles">
+        <div class="holo-particle" style="left: 10%;"></div>
+        <div class="holo-particle" style="left: 20%;"></div>
+        <div class="holo-particle" style="left: 30%;"></div>
+        <div class="holo-particle" style="left: 40%;"></div>
+        <div class="holo-particle" style="left: 50%;"></div>
+        <div class="holo-particle" style="left: 60%;"></div>
+        <div class="holo-particle" style="left: 70%;"></div>
+        <div class="holo-particle" style="left: 80%;"></div>
+        <div class="holo-particle" style="left: 90%;"></div>
+        <div class="holo-particle" style="left: 15%;"></div>
+        <div class="holo-particle" style="left: 25%;"></div>
+        <div class="holo-particle" style="left: 35%;"></div>
+        <div class="holo-particle" style="left: 45%;"></div>
+        <div class="holo-particle" style="left: 55%;"></div>
+        <div class="holo-particle" style="left: 65%;"></div>
+        <div class="holo-particle" style="left: 75%;"></div>
+        <div class="holo-particle" style="left: 85%;"></div>
+        <div class="holo-particle" style="left: 95%;"></div>
+    </div>
+
+    <!-- Added holographic wave effects -->
+    <div class="holo-waves">
+        <div class="holo-wave" style="top: 20%;"></div>
+        <div class="holo-wave" style="top: 40%;"></div>
+        <div class="holo-wave" style="top: 60%;"></div>
+    </div>
+
+    <!-- Added matrix rain effect -->
+    <div class="holo-matrix">
+        <div class="matrix-column" style="left: 5%;">01001010<br>11010110<br>00110101<br>10101001</div>
+        <div class="matrix-column" style="left: 15%;">11001100<br>01010101<br>10011001<br>00110011</div>
+        <div class="matrix-column" style="left: 25%;">10101010<br>01100110<br>11110000<br>00001111</div>
+        <div class="matrix-column" style="left: 35%;">01010101<br>10101010<br>11001100<br>00110011</div>
+        <div class="matrix-column" style="left: 45%;">11110000<br>00001111<br>10101010<br>01010101</div>
+        <div class="matrix-column" style="left: 55%;">00110011<br>11001100<br>01010101<br>10101010</div>
+        <div class="matrix-column" style="left: 65%;">10011001<br>01100110<br>11110000<br>00001111</div>
+        <div class="matrix-column" style="left: 75%;">01010101<br>10101010<br>00110011<br>11001100</div>
+        <div class="matrix-column" style="left: 85%;">11001100<br>00110011<br>10101010<br>01010101</div>
+        <div class="matrix-column" style="left: 95%;">00001111<br>11110000<br>01100110<br>10011001</div>
+    </div>
+
+    <!-- Added scan lines for authentic holographic effect -->
+    <div class="holo-scanlines"></div>
     
     <div class="constellation">
         <div class="constellation-dot color-cyan" style="top: 10%; left: 15%;"></div>
@@ -1122,21 +1427,29 @@
     </div>
 
     <div class="holographic-projections">
-        <!-- Holographic cubes -->
+        <!-- Existing holographic cubes -->
         <div class="hologram-shape hologram-cube" style="top: 20%; left: -50px; animation-delay: 0s;"></div>
         <div class="hologram-shape hologram-cube" style="top: 40%; left: -50px; animation-delay: 2s;"></div>
         <div class="hologram-shape hologram-cube" style="top: 60%; left: -50px; animation-delay: 4s;"></div>
         
-        <!-- Holographic pyramids -->
+        <!-- Existing holographic pyramids -->
         <div class="hologram-shape hologram-pyramid" style="top: 30%; left: -50px; animation-delay: 1s;"></div>
         <div class="hologram-shape hologram-pyramid" style="top: 50%; left: -50px; animation-delay: 3s;"></div>
         <div class="hologram-shape hologram-pyramid" style="top: 70%; left: -50px; animation-delay: 5s;"></div>
         
-        <!-- Holographic spheres -->
+        <!-- Existing holographic spheres -->
         <div class="hologram-shape hologram-sphere" style="top: 15%; left: -50px; animation-delay: 0.5s;"></div>
         <div class="hologram-shape hologram-sphere" style="top: 35%; left: -50px; animation-delay: 2.5s;"></div>
         <div class="hologram-shape hologram-sphere" style="top: 55%; left: -50px; animation-delay: 4.5s;"></div>
         <div class="hologram-shape hologram-sphere" style="top: 75%; left: -50px; animation-delay: 6.5s;"></div>
+
+        <!-- Added new holographic shapes for more variety -->
+        <div class="hologram-shape hologram-diamond" style="top: 25%; left: -50px; animation-delay: 1.5s;"></div>
+        <div class="hologram-shape hologram-diamond" style="top: 45%; left: -50px; animation-delay: 3.5s;"></div>
+        <div class="hologram-shape hologram-diamond" style="top: 65%; left: -50px; animation-delay: 5.5s;"></div>
+        
+        <div class="hologram-shape hologram-hexagon" style="top: 35%; left: -50px; animation-delay: 2.8s;"></div>
+        <div class="hologram-shape hologram-hexagon" style="top: 55%; left: -50px; animation-delay: 4.8s;"></div>
     </div>
 
     <!-- Updated pathway section to timeline format -->
